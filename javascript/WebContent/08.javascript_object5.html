@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	/*
+		생성자함수
+	 */
+	var object = new Object();
+	var strObject = new String('문자열');
+	var numObject = new Number(23);
+	var arrayObject = new Array();
+	//var studentObject = new Student();
+
+	/*
+		학생객체를 생성해주는  <<< 생성자 함수 >>> 작성
+		생성자 함수는 구분을 위해 대문자로 이름을 준다
+		
+			- prototype속성
+	 */
+	function Student(id, name, kor, eng, math) {
+		this.id = id;
+		this.name = name;
+		this.kor = kor;
+		this.eng = eng;
+		this.math = math;
+		this.tot = 0;
+		this.avg = 0.0;
+		
+	}
+		
+	//Student객체의 공용(instance) 메쏘드(prototype에 생성)
+	/*
+	Student.prototype.calculateTot = function() {
+		this.tot = this.kor + this.math + this.eng;
+	}
+	
+	Student.prototype.calculateAvg = function() {
+		this.avg = this.tot / 3.0;
+	}
+	
+	Student.prototype.toString= function() {
+		return '[' + this.id + ']' + this.name + "," + this.kor + ","
+				+ this.eng + "," + this.math + "," + this.tot + ","
+				+ this.avg;
+	}
+	[] --> JSON array
+	{} --> JSON Object
+	*/
+	
+	/************ prototype[JSON] *************/
+	Student.prototype = {
+			'calculateTot': function() {
+				this.tot = this.kor + this.math + this.eng;
+			},
+			
+			'calculateAvg' : function() {
+				this.avg = this.tot / 3.0;
+			},
+			
+			'toString': function() {
+				return '[' + this.id + ']' + this.name + "," + this.kor + ","
+						+ this.eng + "," + this.math + "," + this.tot + ","
+						+ this.avg;
+			}
+	};
+
+	/*************** 학생객체 ****************/
+	var studentArray = [
+		new Student('aaa', '에이님', 34, 67, 87),
+		new Student('bbb', '비님', 78, 67, 45), 
+		new Student('ccc', '씨님', 76, 89, 99) ];
+</script>
+</head>
+<body>
+	<h1>자바스크립트 생성자함수3[prototype]</h1>
+	<script type="text/javascript">
+		document.write('------------- student 리스트 --------------<br>');
+		
+		for (var i = 0; i < studentArray.length; i++) {
+			studentArray[i].calculateTot();
+			studentArray[i].calculateAvg();
+			document.write(studentArray[i].toString() + '<br>');
+		}
+		
+	</script>
+</body>
+</html>

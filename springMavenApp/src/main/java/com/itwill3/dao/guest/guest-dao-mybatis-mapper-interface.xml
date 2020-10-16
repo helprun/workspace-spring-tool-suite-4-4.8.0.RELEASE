@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- <context:property-placeholder location="classpath:jdbc.properties"/>
+	<bean id="dataSource" 
+		  class="org.apache.commons.dbcp2.BasicDataSource"
+		  p:driverClassName="${jdbc.driverClassName}"
+		  p:url="${jdbc.url}"
+		  p:username="${jdbc.username}"
+		  p:password="${jdbc.password}"/> -->
+		  
+	<!-- <bean id="guestDao" class="com.itwill3.dao.guest.GuestDaoImplJDBC">
+		<property name="dataSource" ref="dataSource"/>
+	</bean> -->
+	<import resource="classpath:com/itwill3/dao/datasource.xml"/>
+	<bean  id="sqlSessionFactory" 
+			class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="springDataSource"/>
+	</bean>
+	
+	<!-- ************** case 1 [MapperFactoryBean] ************** -->
+	<!-- <bean id="guestMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="mapperInterface" value="com.itwill3.dao.guest.mapper.GuestMapper"/>
+	</bean> -->
+	<bean id="guestMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="mapperInterface" value="com.itwill3.dao.guest.mapper.GuestMapper"/>
+	</bean>
+	
+	<bean id="guestDao" class="com.itwill3.dao.guest.GuestDaoImplMyBatisMapperInterface">
+		<property name="guestMapper" ref="guestMapper"/>
+	</bean>
+	 
+</beans>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	/*
+		1. function 객체를 변수에 대입(일급함수)
+		2. function 객체를 파라메타 데이타로 사용
+		3. function 객체를 반환
+		
+		- 자바스크립트 내부함수(Inner Function)
+		
+		- 클로져(closure)
+			클로져는 내부함수가 참조하는 외부함수의 지역변수가 외부함수에 의해 
+			내부함수가 반환된이후에도 환경(life-cycle) 이 유지되는것을 의미한다.
+			
+			내부에 작성된 함수
+			메모리 문제를 발생시킬수도있음
+			
+	*/
+	function outer_function1() {
+		var outer_var = 'outer var data';
+		
+		function inner_function1() {
+			var inner_var = 'inner1 var data';
+			document.write('inner1 --> outer_var: ' + outer_var + '<br>');
+			document.write('inner1 --> inner_var: ' + inner_var + '<br>');
+			
+		}
+		inner_function1();
+		document.write('outer1 --> outer_var: ' + outer_var + '<br>');
+		document.write('outer1 --> inner_var: inner_var(x) <br>');
+		return inner_function1;
+	}
+	
+	function outer_function2() {
+		var outer_var = 'outer var data';
+		
+		return function () {
+			var inner_var = 'inner2 var data';
+			document.write('inner2 --> outer_var: ' + outer_var + '<br>');
+			document.write('inner2 --> inner_var: ' + inner_var + '<br>');
+		};
+	}
+	
+	function outer_function3(outer_var) {
+		return function () {
+			var inner_var = 'inner3 var data';
+			document.write('inner3 --> outer_var: ' + outer_var + '<br>');
+			document.write('inner3 --> inner_var: ' + inner_var + '<br>');
+		};
+	}
+	
+	function outer_function4(a, b) {
+		var c = a + b;
+		return function (d) {
+			document.write('inner4 --> a: ' + a + '<br>');
+			document.write('inner4 --> b: ' + b + '<br>');
+			document.write('inner4 --> c: ' + c + '<br>');
+			document.write('inner4 --> d: ' + d + '<br>');
+		};
+	}
+</script>
+</head>
+<body>
+<h1>javascript inner function, closure(클로져)</h1><hr/>
+<script type="text/javascript">
+	var returnInnerFuncVar1 = outer_function1();
+	document.write('----------- closure ---------<br>');
+	returnInnerFuncVar1();
+	
+	var returnInnerFuncVar2 = outer_function2();
+	returnInnerFuncVar2();
+	//outer_function2()();
+	outer_function3('인자1')();
+	outer_function3('인자2')();
+	outer_function4(1, 2)(3);
+</script>
+
+</body>
+</html>

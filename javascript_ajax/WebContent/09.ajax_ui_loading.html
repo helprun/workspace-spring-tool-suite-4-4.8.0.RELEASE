@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src='httpRequestConstructorFunction.js'></script>
+<script type="text/javascript">
+
+	function hideForm() {
+//		document.querySelector('#formContent').innerHTML = "";
+		var contentNode = document.querySelector('#content');
+		if (contentNode != null) {
+			contentNode.style.display = 'none';
+		}
+		
+	}
+	
+	function showForm() {
+		var contentNode = document.querySelector('#content');
+		if (contentNode == null) {
+			var ajaxRequest = new AjaxRequest('guest_write_form.html', null, displayForm, 'GET');
+			ajaxRequest.sendRequest();
+		} else {
+			contentNode.style.display = 'block';
+		}
+		
+	}
+	
+	function displayForm(xhr) {
+		if (xhr.readyState == 4) {
+			var htmlStr = xhr.responseText;
+			document.querySelector('#formContent').innerHTML = htmlStr;
+		} else {
+			document.querySelector('#formContent').innerHTML = '<img src = \'loading.gif\'';
+		}
+	}
+</script>
+</head>
+<body>
+<input type="button" value="회원가입폼" onclick="showForm();">
+<input type="button" value="회원가입취소" onclick="hideForm();">
+<div id='formContent'>
+	
+</div>
+</body>
+</html>

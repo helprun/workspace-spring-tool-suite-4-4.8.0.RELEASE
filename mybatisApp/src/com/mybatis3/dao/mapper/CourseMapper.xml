@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis3.dao.mapper.CourseMapper">
+
+	<resultMap type="Course" id="courseWithStudentsResultMap" autoMapping="true">
+		<result column="course_id" property="courseId"/>
+		<result column="start_date" property="startDate"/>
+		<result column="end_date" property="endDate"/>
+		<collection property="students" 
+					resultMap="com.mybatis3.dao.mapper.StudentMapper.studentResultMap"
+					autoMapping="true">
+		</collection>
+	</resultMap>
+	
+	<resultMap type="Course" id="courseWithStudentsAndAddrResultMap" 
+			   autoMapping="true">
+		<result column="course_id" property="courseId"/>
+		<result column="course_name" property="name"/>
+		<result column="start_date" property="startDate"/>
+		<result column="end_date" property="endDate"/>
+		<collection property="students" autoMapping="true" ofType="Student">
+			<result column="stud_id" property="studId"/>
+			<result column="student_name" property="name"/>
+				<association property="address" autoMapping="true" javaType="com.mybatis3.domain.Address">
+					<result column="addr_id" property="addrId"/>
+				</association>
+		</collection>			
+	</resultMap>
+	<!--  resultMap: [courses + student 조인] -->
+	<select id="findCourseByIdWithStudents" parameterType="int"
+			resultMap="courseWithStudentsResultMap">
+		select c.*, s.*
+		from courses c 
+		join course_enrollment ce 
+		on c.course_id = ce.course_id
+		join students s on s.stud_id = ce.stud_id
+		where ce.course_id = #{course_id}
+	</select>
+	
+	<select id="findCourseByIdWithStudentsAndAddr" parameterType="int"
+			resultMap="courseWithStudentsAndAddrResultMap">
+		select c.course_id, c.name as course_name, c.description, c.start_date, c.end_date, c.tutor_id,
+		s.stud_id, s.name as student_name, s.email, s.phone, s.dob, s.bio, s.pic, s.addr_id,
+		a.street, a.city, a.state, a.zip, a.country
+		from students s 
+		join course_enrollment ce on s.stud_id = ce.stud_id
+		join courses c on c.course_id = ce.course_id
+		join addresses a on s.addr_id = a.addr_id
+		where c.course_id = #{courseId}
+	</select>
+</mapper>

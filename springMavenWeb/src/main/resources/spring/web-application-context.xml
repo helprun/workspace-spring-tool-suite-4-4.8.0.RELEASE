@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<context:component-scan base-package="com.itwill.controller.annotation"/>
+	<mvc:annotation-driven/>
+		<!-- <context:exclude-filter type="assignable" expression="com.itwill.controller.HelloController"/> -->
+	<!-- 
+	MVC객체 설정 
+		1. Controller 객체설정 
+		2. View(JSP) 객체 설정
+		-->
+	<!-- Controller객체를 Spring Web(Child) Container에 등록 -->
+	<bean id="helloController" class="com.itwill.controller.HelloController"/>
+	
+	<!-- 
+	Controller 객체를 Mapping해줄 객체설정
+	 -->
+	 <bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+	 	<property name="mappings">
+			<props>
+				<prop key="/hello.do">helloController</prop>
+			</props>
+	 	</property>
+	 </bean>
+</beans>

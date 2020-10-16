@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.menu{
+		border: 1px double orange;
+		width: 60%;
+		color: gold;
+	}
+</style>
+<script type="text/javascript">
+	function findById() {
+		var div1E = document.getElementById('div1');
+		
+		//form 삽입
+		div1E.innerHTML='';
+		div1E.innerHTML += '<form>'; //html이 들어가서 ui가 변경됨
+		div1E.innerHTML += '검색어:<input type= \'text\'>'; //html이 들어가서 ui가 변경됨
+		div1E.innerHTML += '<input type = \'submit\' value = \'검색\''; //html이 들어가서 ui가 변경됨
+		div1E.innerHTML += '</form>'; //html이 들어가서 ui가 변경됨
+		
+		var div2E = document.getElementById('div2');
+		//style변경		
+		div2E.innerHTML = 'div2 change';
+		div2E.style.border = '3px dotted red';
+		
+		var div3E = document.getElementById('div3');
+		//이미지삽입
+		div3E.innerHTML = "<img src = 'p_current.png' width = '30' height = '30'>";
+		
+		/*
+			display:	none <--> block
+			visibility: hidden <--> visible
+		*/
+		var div4E = document.getElementById('div4');
+		
+		//div4E.style.display='none'; //완전히 제거
+		div4E.style.visibility='hidden'; //위치/틀은 남아있음
+	}
+	
+	function findByClass() {
+		var divNodeList = document.getElementsByClassName('menu'); //nodeList반환 - 여러개를 반환
+		for (var i = 0; i < divNodeList.length; i++) {
+			divNodeList.item(i).style.color='red';
+			divNodeList.item(i).style.backgroundColor='pink';
+		}
+	}
+	
+	var count = 0;
+	function findByTagName() {
+		var h1NodeList = document.getElementsByTagName('h1');
+		var h1E = h1NodeList.item(0);
+		h1E.innerHTML='h1변경' + count++;
+		
+		var divNodeList = document.getElementsByTagName('div');
+		for (var i = 0; i < divNodeList.length; i++) {
+			divNodeList.item(i).style.fontSize = count + 'pt';
+		}
+	}
+
+	function printMessage(msg) {
+
+	}
+</script>
+</head>
+<body>
+	<h1>HTML DOM객체 찾기</h1>
+	<hr>
+	<div id="div1">id=div1</div>
+	<div id="div2">id=div2</div>
+	<div id="div3">id=div3</div>
+	<div id="div4" style="background-color: yellow">id=div4</div>
+	<div class="menu">class=menu</div>
+	<div class="menu">class=menu</div>
+	<div id="resultDiv" style="border: 1px dashed blue; width: 70%">
+		id=resultDiv<br>
+	</div>
+	<div>
+		<input type="button" value="id로찾기" onclick="findById()"> <input
+			type="button" value="class로찾기" onclick="findByClass()"> <input
+			type="button" value="tagName으로찾기" onclick="findByTagName()">
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

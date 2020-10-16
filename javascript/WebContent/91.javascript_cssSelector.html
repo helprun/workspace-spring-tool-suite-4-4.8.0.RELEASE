@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>CSS 선택자를 이용한 HTML DOM Element 검색</title>
+		<script type="text/javascript">
+			/*
+			https://www.w3schools.com/jsref/met_document_queryselector.asp
+				1. querySelector() node반환
+				  - The querySelector() method returns 
+				     the first element that matches a 
+				     specified CSS selector(s) in the document.
+				2. querySelectorAll()  nodelist반환
+				  - The querySelectorAll() method returns 
+				    all elements in the document 
+				    that matches a specified CSS selector(s), as a static NodeList object.
+			*/
+		    window.onload=function(){
+				var divE = document.querySelector('div');
+				divE.style.border='4px double blue';
+				document.querySelector('div').style.background='rgb(100, 200, 0)';
+				
+				var pNodeList = document.querySelectorAll('p');
+				for (var i = 0; i < pNodeList.length; i++) {
+					pNodeList.item(i).style.border='4px solid red';
+					pNodeList.item(i).style.background='rgb(100, 100, 100)';
+				}
+			};
+		
+		</script>
+	</head>
+	<body style="font-size: 15pt">
+		<h3>querySelector</h3>
+		<div>
+			CSS 선택자를 이용한 HTML Element 검색 div
+		</div>
+		<div>
+			CSS 선택자를 이용한 HTML Element 검색 div
+		</div>
+		<div>
+			CSS 선택자를 이용한 HTML Element 검색 div
+		</div>
+		
+		<h3>querySelectorAll</h3>
+		<p>
+			CSS 선택자를 이용한 HTML Element 검색 p
+		</p>
+		<p>
+			CSS 선택자를 이용한 HTML Element 검색 p
+		</p>
+		<p>
+			CSS 선택자를 이용한 HTML Element 검색 p
+		</p>
+		
+	</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>자바스크립트 core객체 Object, Array[JSON] </h1><hr/>
+<script type="text/javascript">
+	/*
+		자바스크립트객체 생성방법
+			1. JSON[JavaScript Object Notation] 사용한 객체생성
+				- [,], {,}, :, ,
+			2. 생성자함수를 사용한 객체생성
+	*/
+	
+	/****************** Object **********************/
+	//Window안에 소속되지 않고 studentObject1 이라는 context안에 소속된다
+	var studentObject1 = {
+		'id': 'aaa',
+		'name': '김태희',
+		'married': true,
+		'weight': 87.4,
+		'toString': function() {
+			return '[' + this.id +']' + this.name + ', '+ this.married + ', ' + this.weight + '<br>';
+		}
+	};
+	
+	/************* 멤버동적추가 ***************/
+	studentObject1.age = 34; 
+	studentObject1.address = '서울시';
+	studentObject1.setWeight = function(weight) {
+		this.weight = weight;
+	};
+	
+	document.write('--------------- studentObject1 출력 ---------------<br>');
+	document.write(studentObject1.id + '<br>');
+	document.write(studentObject1.name + '<br>');
+	document.write(studentObject1.married + '<br>');
+	document.write(studentObject1.weight + '<br>');
+	studentObject1.setWeight(45.9);
+	document.write(studentObject1.weight + '<br>');
+	document.write(studentObject1.age + '<br>');
+	document.write(studentObject1.address + '<br>');
+	document.write(studentObject1.toString());
+				
+	var studentObject2 = new Object();
+	
+	studentObject2.id = 'bbb';
+	studentObject2.name = '이효리';
+	studentObject2.age = 46;
+	studentObject2.weight = 56.9;
+	studentObject2.address = '제주도';
+	studentObject2.married = true;
+	studentObject2.toString = function() {
+		return '[' + this.id +']' + this.name + ', '+ this.married + ', ' + this.weight + '<br>';
+	};
+	
+	document.write('--------------- studentObject2 출력 ---------------<br>');
+	document.write(studentObject2.toString());
+	
+	/****************** Array **********************/
+	//JSON
+	var idArray = ['aaa', 'bbb', 'ccc'];
+	var nameArray = ['KIM', 'LEE', 'PARK'];
+	var ageArray = [23, 45, 34];
+
+	/*
+	생성자함수
+	
+	var idArray = new Array('aaa', 'bbb', 'ccc');
+	var nameAray = new Array('KIM', 'LEE', 'PARK');
+	var ageArray = new Array(23, 45, 34);
+	*/
+	document.write('---------------- Array 출력 -------------<br>');
+	for (var i = 0; i < idArray.length; i++) {
+		document.write(idArray[i] + ', ' + nameArray[i] + ', ' + ageArray[i] + '<br>');
+	}
+</script>
+</body>
+</html>

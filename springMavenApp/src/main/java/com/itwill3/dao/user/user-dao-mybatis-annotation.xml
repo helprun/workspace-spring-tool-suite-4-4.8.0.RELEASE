@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- <context:property-placeholder location="classpath:jdbc.properties"/>
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		  p:driverClassName="${jdbc.driverClassName}"
+		  p:url="${jdbc.url}"
+		  p:username="${jdbc.username}"
+		  p:password="${jdbc.password}"/> -->
+		  <import resource="classpath:com/itwill3/dao/datasource.xml"/>
+	<context:component-scan base-package="com.itwill3.dao.user"/>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="springDataSource"/>
+		<property name="mapperLocations">
+			<list>
+				<value>com/itwill3/dao/user/mapper/UserMapper.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+</beans>

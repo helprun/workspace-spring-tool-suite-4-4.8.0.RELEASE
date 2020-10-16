@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload=function(){
+		//event등록
+		document.getElementById('tweet').addEventListener('click', function() {
+			alert('tweet상세보기');
+		}, false);
+		
+		document.getElementById('imageSpan').addEventListener('click', function(event) {
+			alert('tweet사용자 프로필');
+			event.stopPropagation();
+		}, false);
+		
+		document.getElementById('maina').addEventListener("click", function(e) {
+			//alert('main click!!!');
+			//alert('href--> ' + e.target.href);
+			//원래 행위(main.jsp 페이지 요청)를 못하게 함
+			e.preventDefault();
+			/*
+				AJAX요청으로 서버에서 데이타 (JSON)만 받아와서
+				DOM Tree갱신
+			*/
+			var tweetListE = document.getElementById("tweetList");
+			tweetListE.innerHTML+="<div id='tweet' style='border: 1px solid blue;width:300px;margin-left:50px'>"+
+			                     "<span id='imageSpan'>"+
+								 "<img src='kkh.jpg' width='50px' height='50px' style='border:1px solid red'>"+
+								 "</span>"+
+								 "오늘은날씨가좋아요!!!"+
+								 "</div>";
+			
+								 
+			}, false);
+		
+			document.getElementById('f').addEventListener('submit', function(e) {
+				alert('submit event!!! 회원가입 ajax 요청: ' + e.target.action);
+				//원래 submit행위를 못하게함(GET, POST방식으로 action 요청)
+				e.preventDefault();
+				
+			}, false);					 
+	};
+</script>
+</head>
+<body>
+<h2>이벤트 전파중지   [e.stopPropagation()]</h2><hr/>
+	<div id="tweetList">
+		<div id='tweet' style="border: 1px solid blue;width:300px;margin-left:50px">
+			<span id="imageSpan">
+				<img src='kkh.jpg' width="50px" height="50px" style="border:  1px solid red"/>
+			</span>
+			 오늘은날씨가좋아요!!!
+		</div>
+	</div>
+<h2>디폴트 이벤트 취소[e.preventDefault()]</h2>
+1.anchor tag:<a id="mainp" href='main.jsp'>메인페이지요청[페이지요청]</a><br/>
+2.anchor tag:<a id="maina" href='main.jsp'>메인페이지요청[AJAX요청]</a><br/>
+<br/>
+<form id="f" name="f" action="join.jsp" method="get">
+	아이디:<input type='text' name="id"><br/>
+	form submit button:<input type="submit" value="[ajax요청]">
+</form>
+</body>
+</html>

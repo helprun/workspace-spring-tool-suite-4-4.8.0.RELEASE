@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	<!-- 생성시 기본생성자호출 -->
+	<!-- depends-on -->
+	<bean id="createBean1" depends-on="createBean4" class="com.itwill1.bean.create.CreateBean1"/>
+	<bean id="createBean2" depends-on="createBean3" class="com.itwill1.bean.create.CreateBean2"/>
+	<bean id="createBean3" class="com.itwill1.bean.create.CreateBean3"/>
+	<bean id="createBean4" class="com.itwill1.bean.create.CreateBean4"/>
+	<!-- init-method ,destroy-method  -->
+	<bean id="initDestroyBean" 
+	
+		  init-method="myInit"
+		  destroy-method="myDestroy"
+		  class="com.itwill1.bean.create.InitDestroyBean"/>
+	<!-- scope [ singleton,prototype] -->
+	<bean id="singletonBean"
+		  scope="singleton"	 
+		  class="com.itwill1.bean.create.SingletonScopeBean"/>
+	
+</beans>
+
+
+
+
+
+
+
+
+
+

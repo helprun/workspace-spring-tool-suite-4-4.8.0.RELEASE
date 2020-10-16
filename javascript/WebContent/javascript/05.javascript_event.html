@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function h1_mouse_over_function() {
+		console.log('h1 mouseover event function');		
+	}
+	function h1_mouse_out_function() {
+		console.log('h1 mouseout event function');		
+	}
+	function h1_click_function() {
+		console.log('h1 click function');
+	}
+	function button_click_function(e) {
+		console.log('button_click_function()');
+		console.log(e.target.value);
+	}
+	function input_key_down_function(e) {
+		console.log('input_key_down_function()');
+		console.log(e.target.value);
+		console.log("keyCode--> " + e.keyCode);
+		//console.log("charCode--> " + e.charCode);
+	}
+	function body_onload_function() {
+		console.log('body_onload_function()');
+	}
+	function form_submit_function() {
+		if (confirm('진짜로 가입할래요?')) {
+			return true;	
+		} else {
+			return false;
+		}
+	}
+</script>
+</head>
+<body onload="body_onload_function();">
+<h1 onclick="h1_click_function();" 
+	onmouseout="h1_mouse_out_function();"	
+	onmouseover="window.h1_mouse_over_function()">자바스크립트 이벤트</h1>
+<form onsubmit="return form_submit_function();" action="../4.join.jsp" method="post"> 
+	아이디:<input type="text" onkeydown="input_key_down_function(event);">
+	<input type="submit" value="submit버튼">
+	<input type="button" value="[일반버튼]" onclick="button_click_function(event);">
+</form>
+<pre>
+	1. 브라우져 객체들의 property 들중에 onXXX으로 시작하는 이름을
+		 가진 property(attribute)들을 이벤트 property라고한다.
+		 (이벤트 property(attribute)안에는 자바스크립트코드를 기술할수있다)
+	2. 이벤트 property(attribute) 에 자바스크립트코드를 대입하면
+		 이벤트발생시에 대입한자바스트립트 코드가 실행된다.
+</pre>
+</body>
+</html>

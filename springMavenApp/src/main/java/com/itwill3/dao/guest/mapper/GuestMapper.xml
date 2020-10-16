@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill3.dao.guest.mapper.GuestMapper">
+	
+	 <!-- *************************** RESULTMAP ******************************** -->
+	<resultMap type="com.itwill3.dao.guest.Guest" id="guestResultMap">
+		<result column="guest_no" property="guest_no"/>
+		<result column="guest_name" property="guest_name"/>
+		<result column="guest_date" property="guest_date"/>
+		<result column="guest_email" property="guest_email"/>
+		<result column="guest_homepage" property="guest_homepage"/>
+		<result column="guest_title" property="guest_title"/>
+		<result column="guest_content" property="guest_content"/>
+	</resultMap>
+	
+	 <!-- *************************** SELECT ******************************** -->
+	<select id="selectAll" resultType="com.itwill3.dao.guest.Guest">
+		select guest_no, guest_name, guest_date, guest_email, guest_homepage, guest_title, guest_content
+		from guest
+	</select>
+	
+	<select id="selectByNo" parameterType="int" resultMap="guestResultMap">
+		select guest_no, guest_name, guest_date, guest_email, guest_homepage, guest_title, guest_content
+		from guest where guest_no = #{guest_no}
+	</select>
+	
+	 <!-- *************************** DELETE ******************************** -->
+	<delete id="deleteGuest" parameterType="java.lang.Integer">
+		delete guest where guest_no = #{guest_no}
+	</delete>
+	
+	 <!-- *************************** INSERT ******************************** -->
+	 <insert id="insertGuest" parameterType="com.itwill3.dao.guest.Guest">
+	 	<selectKey order="BEFORE" keyProperty="guest_no" resultType="int">
+	 		select guest_no_seq.nextval from dual
+	 	</selectKey>
+	 	insert into guest(guest_no, guest_name, guest_date, guest_email, guest_homepage, guest_title, guest_content)
+	 	values (#{guest_no}, #{guest_name}, sysdate, #{guest_email}, #{guest_homepage}, #{guest_title}, #{guest_content})
+	 </insert>
+	 
+	 <!-- *************************** UPDATE ******************************** -->
+	 <update id="updateGuest" parameterType="com.itwill3.dao.guest.Guest">
+	 	update guest set guest_name= #{guest_name},
+                 guest_email= #{guest_email},
+                 guest_homepage=#{guest_homepage},
+                 guest_title=#{guest_title},
+                 guest_content=#{guest_content}
+		where guest_no = #{guest_no}
+	 </update>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration status="DEBUG" monitorInterval="300">
+    <!-- XML 안에서 사용할 Global property 설정 --> 
+	<Properties>
+    	<Property name="FILENAME">C:/JAVA_PYTHON/workspace-spring-tool-suite-4-4.8.0.RELEASE/user_spring/logs/</Property>
+		<Property name="LAYOUT">%d{yyyy-MM-dd HH:mm:ss}[%-5level]%C{1} - %msg%n</Property>
+	</Properties>
+
+	<Appenders>
+        <!-- Log 외에 출력 -->
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LAYOUT}" />
+		</Console>
+
+		<RollingFile name="InfoAppender"
+			fileName="${FILENAME}/info.log" filePattern="${FILENAME}/%d{yyyy-MM-dd}/info.log">
+			<PatternLayout pattern="${LAYOUT}" />
+            <!-- 밑의 태그를 이용하여 Level별로 로그를 남길 수 있다. -->
+			<LevelRangeFilter minLevel="INFO" maxLevel="INFO"
+				onMatch="ACCEPT" onMismatch="DENY" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverstrategy>
+				<Delete basePath="/logs" maxDepth="3">
+					<IfLastModified age="30d" />
+				</Delete>
+			</DefaultRolloverstrategy>
+		</RollingFile>
+		<RollingFile name="FatalAppender"
+			fileName="${FILENAME}/fatal.log" filePattern="${FILENAME}/%d{yyyy-MM-dd}/fatal.log">
+			<PatternLayout pattern="${LAYOUT} %throwable{full}" />
+			<LevelRangeFilter minLevel="FATAL" maxLevel="FATAL"
+				onMatch="ACCEPT" onMismatch="DENY" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverstrategy>
+				<Delete basePath="/logs" maxDepth="3">
+					<IfLastModified age="10d" />
+				</Delete>
+			</DefaultRolloverstrategy>
+		</RollingFile>
+
+		<RollingFile name="WarnAppender"
+			fileName="${FILENAME}/warn.log" filePattern="${FILENAME}/%d{yyyy-MM-dd}/warn.log">
+			<PatternLayout pattern="${LAYOUT} %throwable{full}" />
+			<LevelRangeFilter minLevel="WARN" maxLevel="WARN"
+				onMatch="ACCEPT" onMismatch="DENY" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverstrategy>
+				<Delete basePath="/logs" maxDepth="3">
+					<IfLastModified age="60d" />
+				</Delete>
+			</DefaultRolloverstrategy>
+		</RollingFile>
+
+		<RollingFile name="ErrorAppender"
+			fileName="${FILENAME}/error.log" filePattern="${FILENAME}/%d{yyyy-MM-dd}/error.log">
+			<PatternLayout pattern="${LAYOUT} %throwable{full}" />
+			<LevelRangeFilter minLevel="ERROR" maxLevel="ERROR"
+				onMatch="ACCEPT" onMismatch="DENY" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverstrategy>
+				<Delete basePath="/logs" maxDepth="3">
+					<IfLastModified age="60d" />
+				</Delete>
+			</DefaultRolloverstrategy>
+		</RollingFile>
+	</Appenders>
+
+
+	<Loggers>
+		<Logger name="com.itwill" additivity="true">
+			<AppenderRef ref="FatalAppender" />
+			<AppenderRef ref="InfoAppender"  />
+			<AppenderRef ref="WarnAppender"  />
+			<AppenderRef ref="ErrorAppender" />
+		</Logger>
+        <!-- Root는 필수로 있어야 함 -->
+		<Root level="DEBUG">
+			<AppenderRef ref="console" />
+		</Root>
+	</Loggers>
+</configuration>

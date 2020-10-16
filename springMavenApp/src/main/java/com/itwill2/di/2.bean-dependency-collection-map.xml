@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Collection, Map -->
+	<bean id="listController" class="com.itwill2.di.ListController"/>
+	<bean id="loginController" class="com.itwill2.di.LoginController"/>
+	<bean id="viewController" class="com.itwill2.di.ViewController"/>
+	
+	<bean id="collectionMapInjectionBean" class="com.itwill2.di.CollectionMapInjectionBean">
+	<!-- ############################ 객체 ######################## -->
+	<property name="controllerList" >
+		<list>
+			<ref bean="listController"/>
+			<ref bean="loginController"/>
+			<ref bean="viewController"/>
+		</list>
+	</property>
+	<property name="controllerSet">
+		<set>
+			<ref bean="listController"/>
+			<ref bean="loginController"/>
+			<ref bean="viewController"/>
+		</set>
+	</property>
+	<property name="controllerMap">
+		<map>
+			<entry key="/list.do" value-ref="listController"/>
+			<entry key="/login.do" value-ref="loginController"/>
+			<entry key="/view.do" value-ref="viewController"/>
+		</map>
+	</property>
+	<property name="controllerProperties">
+		<props>
+			<prop key="/list.do">com.itwill2.di.ListController</prop>
+			<prop key="/login.do">com.itwill2.di.LoginController</prop>
+			<prop key="/view.do">com.itwill2.di.ViewController</prop>
+		</props>
+	</property>
+	<!-- ############################ 기본형 ######################## -->
+	<property name="addressList" value="서울, 부산, 대구, 대전, 인천, 제주"/>
+		<!-- <property name="addressList" >
+			<list>
+				<value>서울</value>
+				<value>부산</value>
+				<value>대구</value>
+				<value>대전</value>
+				<value>인천</value>
+				<value>제주</value>
+			</list>
+		</property> -->
+		<property name="addressSet" value="서울, 부산, 대구, 대전, 인천, 제주"/>
+		<!-- <property name="addressSet">
+			<set>
+				<value>서울</value>
+				<value>부산</value>
+				<value>대구</value>
+				<value>대전</value>
+				<value>인천</value>
+				<value>제주</value>
+			</set>
+		</property> -->
+		<property name="addressMap">
+			<map >
+				<entry key="user1" value="서울"/>
+				<entry key="user2" value="부산"/>
+				<entry key="user3" value="대구"/>
+				<entry key="user4" value="대전"/>
+				<entry key="user5" value="인천"/>
+				<entry key="user6" value="제주"/>
+			</map>
+		</property>
+		
+		<property name="addressProperties">
+			<props >
+				<prop key="user1">서울</prop>
+				<prop key="user2">부산</prop>
+				<prop key="user3">대구</prop>
+				<prop key="user4">대전</prop>
+				<prop key="user5">인천</prop>
+				<prop key="user6">제주</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	
+</beans>

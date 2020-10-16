@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+    var xhr=null;
+	function ajaxRequestIdCheck(){
+		   var idStr=document.f.id.value;
+		   if(idStr.length==0 || idStr.trim()==''){
+				return;		   
+		   }
+		
+			/*
+			AJAX요청순서
+			*/
+			
+			/*
+			1. XMLHttpRequest객체생성
+			*/
+			xhr=new XMLHttpRequest();
+			/*
+			2. 요청속성설정 
+			*/
+			xhr.open('GET', '02.ajaxRequest.jsp?id='+idStr,true);
+			
+			/*
+			응답이 도착했을때 실행되는 콜백함수등록
+			*/
+			xhr.onreadystatechange = responseCallBack;
+			/*
+			3.요청
+			*/
+			xhr.send(null);
+			
+	}	
+	/*
+	응답이 도착했을때 실행되는 사용자정의 콜백함수
+	*/
+	function responseCallBack(){
+		
+		/*
+		<< xhr.readyState >>
+		The state of the request. 
+		 0=unsent
+		 1=opened
+		 2=headers_received
+		 3=loading
+		 4=done
+		*/
+		if(xhr.readyState==4){
+			var responseStr = xhr.responseText;
+			//console.log(responseStr);
+			document.getElementById('msg').innerHTML=responseStr;
+		}else{
+			document.getElementById('msg').innerHTML= 'loading...';
+		}
+	}
+</script>
+</head>
+<body>
+<h1>ajax요청</h1><hr/>
+<form name="f" id="f" action="">
+	아이디:<input type="text" name="id" id="id" 
+			onkeyup="ajaxRequestIdCheck();">
+	<span id="msg"></span>
+</form>
+</body>
+</html>
+
+
+
+
+
+
+

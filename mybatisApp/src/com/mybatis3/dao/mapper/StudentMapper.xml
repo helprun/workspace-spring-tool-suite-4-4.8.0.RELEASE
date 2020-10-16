@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis3.dao.mapper.StudentMapper">
+	
+	<!-- ################### resultMap ###################### -->
+	<resultMap type="Student" 
+			   id="studentResultMap">
+		<result column="STUD_ID" property="studId"/>
+		<result column="NAME" property="name"/>
+		<result column="EMAIL" property="email"/>
+		<result column="DOB" property="dob"/>
+			   
+	</resultMap>
+	<resultMap type="Student" id="studentWithAddressResultMap" autoMapping="true">
+		<result column="STUD_ID" property="studId"/>
+		<association property="address" javaType="com.mybatis3.domain.Address" autoMapping="true">
+			<result column="ADDR_ID" property="addrId"/>	
+		</association>
+	</resultMap>
+	
+	<resultMap type="Student" id="studentWithCoursesResultMap" 
+			   autoMapping="true" extends="studentResultMap">
+			   <result column="student_name" property="name"/>
+		<collection property="courseList" autoMapping="true" ofType="Course">
+			<result column="course_id" property="courseId"/>
+			<result column="course_name" property="name"/>
+			<result column="start_date" property="startDate"/>
+			<result column="end_date" property="endDate"/>
+		
+		</collection>
+	</resultMap>
+	
+	<resultMap type="Student" id="studentWithCoursesAddrResultMap" autoMapping="true"
+	extends="studentWithCoursesResultMap">
+		<association property="address" javaType="com.mybatis3.domain.Address" autoMapping="true">
+			<result column="ADDR_ID" property="addrId"/>
+		</association>
+	</resultMap>
+	
+	<!-- ################################################### -->
+	
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ SELECT Map, List<Map> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+	<!-- resultType Map -->
+	<select id="findStudentByIdMap" 
+			parameterType="java.lang.Integer"
+			resultType="java.util.Map">
+		select stud_id studId, name, email, dob 
+		from students
+		where stud_id = #{studId}
+	</select>
+	
+	
+	<!-- resultType List<Map> -->
+	<select id="findAllStudentsMapList"
+			resultType="java.util.Map">
+		select stud_id studId, name, email, dob
+		from students
+	</select>
+	
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ SELECT ETC(String, Date, Integer, Double) @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+	<select id="findStudentNameList" resultType="java.lang.String">
+		select name from students
+	</select>
+	<select id="findStudentNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+		select name from students where stud_id = #{studId}
+	</select>
+	
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ SELECT[JOIN] DTO, List<DTO> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+	<!--  resultMap: [Student + courses + address 조인] -->
+	<select id="findStudentByIdWithCoursesAndAddr" parameterType="int" resultMap="studentWithCoursesAddrResultMap">
+		select s.stud_id, s.name as student_name, s.email, s.phone, s.dob, s.bio, s.pic, s.addr_id,
+		c.course_id, c.name as course_name, c.description, c.start_date, c.end_date, c.tutor_id,
+		a.street, a.city, a.state, a.zip, a.country
+		from students s 
+		join course_enrollment ce on s.stud_id = ce.stud_id
+		join courses c on c.course_id = ce.course_id
+		join addresses a on s.addr_id = a.addr_id
+		where s.stud_id = #{stud_id}
+	</select>
+	<!--  resultMap: [Student + courses 조인] -->
+	<select id="findStudentByIdWithCourses" parameterType="int"
+			resultMap="studentWithCoursesResultMap">
+		select s.stud_id, s.name as student_name, s.email, s.phone, s.dob, 
+        c.course_id, c.name as course_name, c.description, c.start_date, c.end_date, c.tutor_id
+		from courses c 
+		join course_enrollment ce 
+		on c.course_id = ce.course_id
+		join students s on s.stud_id = ce.stud_id
+		where ce.stud_id = #{stud_id}
+	</select>
+	
+	<!--  resultMap: [Student + Address 조인] -->
+	<select id="findStudentByIdWithAddress" parameterType="int" 
+			resultMap="studentWithAddressResultMap">
+		select stud_id, name, email, dob, phone, a.addr_id, street, city, state, zip, country
+		FROM students s 
+		left outer join addresses a 
+		on s.addr_id=a.addr_id
+		where s.stud_id= #{stud_id}
+	</select>
+	
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ DELETE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@* -->
+	<delete id="deleteStudentById" parameterType="int">
+		delete students where stud_id = #{studId}
+	</delete>
+	<delete id="deleteStudentByName" parameterType="java.lang.String">
+		delete students where name = #{name}
+	</delete>
+	<delete id="deleteStudentByNameLike" parameterType="java.lang.String">
+		delete students where name like #{name}||'%'
+	</delete>
+	
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ UPDATE @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@* -->
+	<update id="updateStudent" parameterType="Student">
+		update students set name = #{name}, email = #{email}, dob = #{dob}
+		where stud_id = #{studId}
+	</update>
+	
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ INSERT @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+		<insert id="insertStudent" 
+				parameterType="Student">
+			insert into students(stud_id, name, email, dob)
+			values(#{studId}, #{name}, #{email}, #{dob})
+		</insert>
+		
+		<insert id="insertStudentBySequence1" 
+				parameterType="Student">
+			insert into students(stud_id, name, email, dob)
+			values(STUDENTS_STUD_ID_SEQ.nextval, #{name}, #{email}, #{dob})
+		</insert>
+		
+		<insert id="insertStudentBySequence2" 
+				parameterType="Student">
+			<selectKey order="BEFORE" keyProperty="studId" resultType="int">
+				select STUDENTS_STUD_ID_SEQ.nextval from dual
+			</selectKey>
+			insert into students(stud_id, name, email, dob)
+			values(#{studId}, #{name}, #{email}, #{dob})
+		</insert>
+		
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ SELECT @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+	<select id="findStudentByIdResultMap"
+			parameterType="java.lang.Integer"
+			resultMap="studentResultMap">
+		select stud_id, name, email, dob 
+		from students
+		where stud_id = #{studId}
+	</select>
+	
+	<!-- resultType DTO -->
+	<select id="findStudentById" 
+			parameterType="java.lang.Integer"
+			resultType="Student">
+		select stud_id studId, name, email, dob 
+		from students
+		where stud_id = #{studId}
+	</select>
+	
+	<!-- resultType List<DTO> -->
+	<select id="findAllStudents"
+			resultType="Student">
+		select stud_id studId, name, email, dob
+		from students
+	</select>
+	
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ parameterType @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+	<update id="updateStudentParamMap" 
+			parameterType="map">
+		update students set name = #{name}, email = #{email}, dob = #{dob}
+		where stud_id = #{studId}
+	</update>
+	
+	<select id="findStudentByIdRangeParamMap" 
+			parameterType="map"
+			resultType="Student">
+		select stud_id as studId, name, email, dob 
+		from students
+		where stud_id &gt;= #{startNo} and stud_id &lt;= #{endNo}
+	</select>
+	
+	<select id="findStudentThreeParamMap" 
+			parameterType="map"
+			resultType="Student">
+		select stud_id studId, name, email, dob 
+		from students
+		where stud_id in(#{first.studId}, #{second.studId}, #{third.studId})
+	</select>
+	
+	
+</mapper>

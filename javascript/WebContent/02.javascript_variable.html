@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	/*
+	변수, 상수, 리터럴
+	window객체에 소속 
+	*/
+	//let a1 = 'test1';
+	var a1 = 'test1';
+	var a2 = 'test2';
+	var b = 123;
+	var c= 123.4;
+	var d = true;
+	//var a1 = 'test1';
+	//let a1 = 'test1';
+	//Uncaught SyntaxError: Identifier 'a1' has already been declared
+	e = '김태희';
+	var e;
+	console.log('e-->' + e); //컴파일 시 모든 변수가 먼저 선언됨
+	/*
+	상수 선언
+	Uncaught SyntaxError: Missing initializer in const declaration
+	const f;
+	*/
+	const f = 'KIM';
+	
+	var g; //초기화 하지 않을 경우 undefined값이 들어감
+	var h = null; //null일경우 객체타입으로 초기화
+
+	/********* Array ******************/
+	/* 
+		1. Array객체생성
+			A. JavaScript Object Notation [ JSON ]
+			 	ex> [ , ], :, { , }, ,
+	*/
+	var nameArray = ['KIM','LEE','PARK','CHOI','SIM'];
+	var scoreArray = [78,88,85,98,68,90];
+	console.log(nameArray[0])
+	console.log(scoreArray[0])
+	for (var i = 0; i < nameArray.length; i++) {
+		console.log(nameArray[i] + "-->" + scoreArray[i]);
+	}
+	console.log('window.i ---->' + window.i);
+	console.log('------------------------------------');
+	console.log(window.a1);
+	console.log(typeof window.a1);
+	console.log(b);
+	console.log(typeof b);
+	if (typeof b == 'number') {
+		console.log('b는 number입니다');
+	}
+	
+	if (typeof g == 'undefined') {
+		console.log('g는 undefined입니다')
+	}
+	if (g == undefined) {
+		console.log('g는 undefined입니다')
+	}
+	
+	console.log(typeof h); //object
+	
+	if (h == null) {
+		console.log('h는 null입니다')
+	}
+	
+</script>
+</head>
+<body>
+
+</body>
+</html>

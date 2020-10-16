@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean id="guestMainController" class="com.itwill.guest.controller.GuestMainController"/>
+	<bean id="guestListController" class="com.itwill.guest.controller.GuestListController">
+		<property name="guestService" ref="guestService"/>
+	</bean>
+	<bean id="guestErrorController" class="com.itwill.guest.controller.GuestErrorController"/>
+	<bean id="guestModifyFormController" class="com.itwill.guest.controller.GuestModifyFormController">
+		<property name="guestService" ref="guestService"/>
+	</bean>
+	<bean id="guestModifyActionController" class="com.itwill.guest.controller.GuestModifyActionController">
+		<property name="guestService" ref="guestService"/>
+	</bean>
+	<bean id="guestRemoveActionController" class="com.itwill.guest.controller.GuestRemoveActionController">
+		<property name="guestService" ref="guestService"/>
+	</bean>
+	<bean id="guestViewController" class="com.itwill.guest.controller.GuestViewController">
+		<property name="guestService" ref="guestService"/>
+	</bean>
+	<bean id="guestWriteActionController" class="com.itwill.guest.controller.GuestWriteActionController">
+		<property name="guestService" ref="guestService"/>
+	</bean>
+	<bean id="guestWriteFormController" class="com.itwill.guest.controller.GuestWriteFormController"/>
+	
+	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/guest_main.do">guestMainController</prop>
+				<prop key="/guest_list.do">guestListController</prop>
+				<prop key="/guest_error.do">guestErrorController</prop>
+				<prop key="/guest_modify_form.do">guestModifyFormController</prop>
+				<prop key="/guest_modify_action.do">guestModifyActionController</prop>
+				<prop key="/guest_remove_action.do">guestRemoveActionController</prop>
+				<prop key="/guest_view.do">guestViewController</prop>
+				<prop key="/guest_write_action.do">guestWriteActionController</prop>
+				<prop key="/guest_write_form.do">guestWriteFormController</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>

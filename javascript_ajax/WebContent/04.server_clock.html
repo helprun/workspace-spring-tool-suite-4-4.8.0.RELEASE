@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="httpRequest.js"></script>
+<title>Insert title here</title>
+
+<script type="text/javascript">
+	function requestServerTime(){
+		sendRequest('04.server_clock.jsp', null, responseServerTime, 'GET');
+		
+	}
+	function responseServerTime(){
+		if (xhr.readyState == 4) {
+			var serverTimeStr = xhr.responseText;
+			document.getElementById('serverTimeSpan').innerHTML = serverTimeStr;
+		}
+	};
+	
+	window.onload=function(){
+		/******************window.setInterval[반복실행]********************/
+		//requestServerTime();
+		var timerId = window.setInterval(function() {
+			requestServerTime();
+		}, 1000);
+		
+		//window.clearInterval(timerId); 반복실행 중지  
+		
+		/**************************************************/
+		/******************window.setTimeout[한번실행]******************
+		
+		***************************************/
+	};
+</script>
+</head>
+<body>
+<h1>clock[window.setTimeout,window.setInterval]</h1><hr/>
+<div>현재서버의시간은 <span id='serverTimeSpan'>12:45:45</span></div>
+</body>
+</html>
+
+

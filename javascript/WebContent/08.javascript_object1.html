@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	/*
+		1. JSON객체생성
+	*/
+	var memberJSONObject1 = {
+			'no': 1,
+			'name': '김경호',
+			'address': '서울',
+			'setName': function(name) {
+				this.name = name;
+			},
+			'getName': function() {
+				return this.name;
+			},
+			'toString': function() {
+				return this.no + ', ' + this.name + ', ' + this.address;
+			}
+			
+	};
+	
+	var memberJSONObject2 = {
+			'no': 2,
+			'name': '김경미',
+			'address': '부산',
+			'setName': function(name) {
+				this.name = name;
+			},
+			'getName': function() {
+				return this.name;
+			},
+			'toString': function() {
+				return this.no + ', ' + this.name + ', ' + this.address;
+			}
+	};
+	
+	var memberJSONObject3 = {
+			'no': 3,
+			'name': '김경희',
+			'address': '강릉',
+			'setName': function(name) {
+				this.name = name;
+			},
+			'getName': function() {
+				return this.name;
+			},
+			'toString': function() {
+				return this.no + ', ' + this.name + ', ' + this.address;
+			}
+	};
+	
+	var memberArray = [memberJSONObject1, memberJSONObject2, memberJSONObject3];
+	//var memberArray = [{}, {}, {}];
+</script>
+</head>
+<body>
+<h1>javascript object1</h1>
+	<script type="text/javascript">
+		for (var i = 0; i < memberArray.length; i++) {
+			document.write(
+					memberArray[i].no + ', ' + 
+					memberArray[i].name + ', ' + 
+					memberArray[i].address + '<br>');
+		}
+	</script>
+</body>
+</html>

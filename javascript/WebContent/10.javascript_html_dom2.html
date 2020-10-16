@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var count=0;
+	
+	function create(){
+		count++;
+		/*
+		<< Node 생성기능은 document객체만 가지는 기능 >>
+		1.div Element 생성
+		*/
+		var newDivE = document.createElement('div');
+		newDivE.style.border='1px dotted gold';
+		newDivE.setAttribute('id', 'newDiv' + count);
+		//newDivE.innerHTML='text ' + count++; 
+		
+		/*
+		 1-1. TextNode생성
+		*/
+		var newTextNode = 
+			document.createTextNode('새로 생성된 DIV ' + count + '의 TextNode'); // <-- 자식 Node의 text객체, TextNode를 만들어서 newDivE에 붙이는 것
+		newDivE.appendChild(newTextNode);
+			
+		/*
+		 1-2. img Element생성
+		*/
+		var imgE = document.createElement('img');
+		imgE.setAttribute('src', 'p_blue.png');
+		imgE.setAttribute('width', '20px');
+		imgE.setAttribute('height', '20px');
+		newDivE.insertBefore(imgE, newTextNode);
+		newDivE.appendChild(imgE);
+		
+		var imgE2 = document.createElement('img');
+		imgE2.setAttribute('src', 'p_red.png');
+		imgE2.setAttribute('width', '20px');
+		imgE2.setAttribute('height', '20px');
+		newDivE.insertBefore(imgE2, newTextNode);
+		
+		/*
+		2.DOM Tree에 추가
+		추가 될 기준 객체가 필요하다
+		*/
+		var parentDivE = document.getElementById('parent');
+		parentDivE.appendChild(newDivE);
+		
+	};
+	
+	function remove(){
+		if(count == 0) return;
+		var removeDivE = document.getElementById('newDiv' + count);
+		var parentDivE = removeDivE.parentNode;
+		parentDivE.removeChild(removeDivE);
+		count--;
+	};
+	
+	function update(){
+		var bodyNodeList = document.getElementsByTagName('body');
+		var bodyE = bodyNodeList.item(0);
+		bodyE.style.background="url('p_current.png')";
+		bodyE.style.backgroundRepeatX='no-repeat';
+		bodyE.style.backgroundRepeatY='no-repeat';
+	};
+	
+</script>
+</head>
+<body>
+<h1>HTML DOM객체 CRUD</h1><hr>
+<div id="parent">
+
+</div>
+<div id="menu">
+	<input type="button" value="추가" onclick="create()">
+	<input type="button" value="삭제" onclick="remove()">
+	<input type="button" value="수정" onclick="update()">
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

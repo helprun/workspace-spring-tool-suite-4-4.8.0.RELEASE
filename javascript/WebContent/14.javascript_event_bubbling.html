@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	*{
+		border: 1px dotted blue;
+		
+	}
+</style>
+<script type="text/javascript">
+	function eventPropagationCancle(event){ //propagation == 이밴트가 발생하면 window까지 전파하는것
+		alert(event.target);
+		event.stopPropagation(); 
+	}
+</script>
+</head>
+<body onclick="alert('body');">
+	<div onclick="alert('outer div');">
+		<div onclick="alert('inner div');">
+			<h1 onclick="alert('h1');">
+				<p onclick= "eventPropagationCancle(event);" >javascript event bubbling</p>
+			</h1>
+		</div>
+	</div>
+	<br/>
+	<br/>
+</body>
+</html>

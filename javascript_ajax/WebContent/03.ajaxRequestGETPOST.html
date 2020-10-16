@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var xhr=null;
+	function ajaxRequestPost(){
+		var idStr = document.postForm.id.value;
+		if (idStr.trim()=="") {
+			return;
+		}
+		xhr = new XMLHttpRequest();
+		var params = 'id=' + idStr;
+		var method = 'POST';
+		var url = '03.ajaxRequestGETPOST.jsp';
+		var async = true;
+		
+		xhr.onreadystatechange = postResponseCallBack;
+		xhr.open(method, url, async);
+		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); //post일때 반드시 붙여야 한다
+		
+		xhr.send(params);
+	}
+	
+	function postResponseCallBack(){
+		if (xhr.readyState == 4) {
+			var responseStr = xhr.responseText;
+			document.getElementById('postResultSpan').innerHTML = responseStr;
+		} else {
+			document.getElementById('postResultSpan').innerHTML = 
+				"<img width= '15px' height = '15px' src = 'loading.gif'>";
+		}
+	}
+	
+	window.onload=function(){
+		//이벤트등록
+		document.postForm.id.addEventListener('keyup', function(e) {
+			ajaxRequestPost();
+		}, false);
+	};
+</script>
+</head>
+<body>
+<h1>AJAX GET,POST요청</h1><hr/>
+<form id="postForm" name="postForm">
+	아이디[POST]:<input type="text" name="id" id="id">
+	<span id="postResultSpan"></span>
+</form>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- 1. Constructor Injection -->
+	<!-- String, Wrapper, Primitive type -->
+	<bean id="constructorUser0" class="com.itwill.user.User"></bean>
+	<bean id="constructorUser1" class="com.itwill.user.User">
+		<constructor-arg value="guard" index="0"/>
+		<constructor-arg value="1111" index="1"/>
+		<constructor-arg value="김미숙" index="2"/>
+		<constructor-arg value="guard@gmail.com" index="3"/>
+	</bean>	
+	<!-- ref(Bean) type -->
+	<bean id="userDao" class="com.itwill.user.UserDaoImpl"/>
+	<bean id="userService" class="com.itwill.user.UserServiceImpl">
+		<constructor-arg ref="userDao"/>
+	</bean>
+	<!-- Collection, Map -->
+	
+	<!-- 2. Setter[method] Injection -->
+	<!-- String, Wrapper, Primitive type -->
+	<bean id="setUser1" class="com.itwill.user.User">
+		<property name="userId" value="guard"></property>
+		<property name="name" value="가아드"></property>
+		<property name="password" value="1111"></property>
+		<property name="email" value="guard@gmail.com"></property>
+	</bean>
+	
+	<bean id="setUser2" 
+		  class="com.itwill.user.User"
+		  p:userId = "yyyy"
+		  p:password="2222"
+		  p:name="와이맨"
+		  p:email="y@gmail.com"
+		  />
+	
+	<!-- ref(Bean) type -->
+	<bean id="setUserService" class="com.itwill.user.UserServiceImpl">
+		<property name="userDao" ref="userDao"/>
+	</bean>
+	
+	
+	
+	
+</beans>

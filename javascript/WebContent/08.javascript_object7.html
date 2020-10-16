@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="Student.js"></script>
+<script type="text/javascript">
+
+	/*
+		- 학생객체를 생성해주는  <<< 생성자 함수 >>> 라이브러리 사용
+	 */
+	/*************** 학생객체 ****************/
+	var studentArray = [
+		new com.itwill.Student('aaa', '에이님', 34, 67, 87),
+		new com.itwill.Student('bbb', '비님', 78, 67, 45), 
+		new com.itwill.Student('ccc', '씨님', 76, 89, 99) ];
+</script>
+</head>
+<body>
+	<h1>자바스크립트 생성자함수4[JS라이브러리 사용]</h1>
+	<script type="text/javascript">
+		document.write('------------- student 리스트 --------------<br>');
+		
+		for (var i = 0; i < studentArray.length; i++) {
+			studentArray[i].calculateTot();
+			studentArray[i].calculateAvg();
+			document.write(studentArray[i].toString() + '<br>');
+		}
+		
+	</script>
+</body>
+</html>

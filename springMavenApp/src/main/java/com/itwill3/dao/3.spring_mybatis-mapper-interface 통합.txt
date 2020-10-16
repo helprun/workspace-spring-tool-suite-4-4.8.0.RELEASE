@@ -1,0 +1,55 @@
+1.pom.xml  
+	A.mybatis 라이브러리 dependency 추가
+	<dependency>
+	    <groupId>org.mybatis</groupId>
+	    <artifactId>mybatis</artifactId>
+	    <version>3.4.6</version>
+	</dependency>
+	B.mybatis,spring 통합라이브러리 dependency 추가
+	<dependency>
+	  <groupId>org.mybatis</groupId>
+	  <artifactId>mybatis-spring</artifactId>
+	  <version>2.0.5</version>
+	</dependency>
+	
+2. mybatis-config.xml파일생성 클래스패쓰 root[resources폴더의 root]에위치	
+	###########mybatis-config.xml###################
+	<!DOCTYPE configuration
+	  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+	<configuration>
+		<typeAliases></typeAliases>
+	</configuration>
+	#################################################
+	
+3. org.mybatis.spring.SqlSessionFactoryBean	을 
+   application-config.xml에 등록 
+	###############applicationContext.xml############
+	
+	<import resource="classpath:com/itwill3/dao/datasource.xml"/>
+	<bean  id="sqlSessionFactory" 
+			class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="springDataSource"/>
+	</bean>
+	
+	<!-- ************** case 1 [MapperFactoryBean] ************** -->
+	<bean id="guestMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+		<property name="mapperInterface" value="com.itwill3.dao.guest.mapper.GuestMapper"/>
+	</bean>
+	
+	<bean id="guestDao" class="com.itwill3.dao.guest.GuestDaoImplMyBatisMapperInterface">
+		<property name="guestMapper" ref="guestMapper"/>
+	</bean>
+	
+	###############################################
+
+
+
+
+
+
+
+
+
+	

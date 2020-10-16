@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function head_function() {
+		document.write("head_function()<br>");		
+	}
+	
+	var name = 'global name';
+	var msg = 'global msg';
+	
+	function hello1() {
+		/*
+		local변수
+		*/
+		var name = 'GUEST';
+		var msg = '안녕하세요';
+		document.write(name + " 님 " + msg + "[hello1()]<br>"); 
+	}
+	
+	function hello2(msg) {
+		var name = 'GUEST';
+		if (msg == undefined) {
+			msg = '안녕하세요';
+		}
+		document.write(name + " 님 " + msg + "[hello2(msg)]<br>"); 
+	}
+	function hello3(name, msg) {
+		document.write(name + " 님 " + msg + "[hello3(msg,name)]<br>"); 
+	}
+	function hello4(name, msg, count) {
+		document.write("i= " +i+ "<br>");
+		for (var i = 0; i < count; i++) {
+			document.write(name + " 님 " + msg + "[hello4(msg,name, count)]("+i+")<br>"); 
+		}
+		document.write("i= " +i+ "<br>");
+	}
+	function add(a, b) {
+		var r = a + b;
+		return r;
+	}
+	function sub(a, b) {
+		return a - b;
+		
+	}
+	/*
+	function alert(msg) {
+		document.write('내가만든경고함수: ' + msg + '<br>');
+	}
+	*/
+	
+</script>
+</head>
+<body>
+<h1>자바스크립트 함수</h1><hr/>
+<div>함수도 객체다</div>
+<script type="text/javascript">
+	window.head_function();
+	window.hello1();
+	window.hello2('너무 잘생겼어요');
+	window.hello2();
+	window.hello3('권순수', '피곤하시죠?');
+	window.hello4('권순수', '삼대몇치심?',5);
+	var r = window.add(34, 89);
+	document.write('add():' + r + "<br>");
+	var r = window.add("김", "경호");
+	document.write('add():' + r + "<br>");
+	window.alert('경고메세지!!');
+	//window.body_end_function();
+	//window.alert = "경고";
+	//window.alert(); window.alert is not a function
+	window.div = function(a, b) {
+		document.write('div: ' + a/b);
+	}
+	div(1,2);
+</script>
+<script type="text/javascript">
+	function body_end_function() {
+		document.write("body_end_function()<br>");
+	}
+</script>
+</body>
+</html>

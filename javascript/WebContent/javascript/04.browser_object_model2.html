@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function window_use() {
+		window.alert('alert message!!');
+		var isOk = window.confirm('삭제하시겠습니까?');
+		if (isOk) {
+			window.document.write("삭제<br/>");
+		} else {
+			window.document.write("취소<br/>");
+		}
+		var ageStr = window.prompt("나이를 입력하세요", 20);
+		var ageInt = window.parseInt(ageStr);
+		var msg = '';
+		switch (ageInt) {
+		case 20:
+			msg = '청년';
+			break;
+		case 30:
+			msg='아저씨';
+			break;
+
+		default:
+			msg= '20,30 이외의 값 입력';
+			break;
+		}
+		document.write("입력된 값: " + msg + "<br>");
+		
+		var name = '김경호';
+		name = window.encodeURI(name);
+		var url = 'xxx.jsp?name=' + name;
+		window.document.write('encode url: ' +  url + '<br/>');
+		url = window.decodeURI(url);
+		window.document.write('decode url: ' +  url + '<br/>');
+		
+		window.open('../2.gugudan.jsp',
+					'login',
+					'width = 300, height = 300, menubar = no, status = no, toolbar = no');
+	}
+</script>
+</head>
+<body>
+<h1>BOM[window]</h1>
+<script type="text/javascript">
+	window_use();
+	
+</script>
+</body>
+</html>
