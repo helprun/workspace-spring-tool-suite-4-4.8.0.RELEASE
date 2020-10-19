@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery 소개</title>
+<style>
+.title{
+	border: 2px solid red;
+	background-color: gold;
+}
+.highlight1{
+	background-color: #995500;
+}
+.highlight2{
+	background-color: #00FF00;
+}
+
+.highlight3{
+	border: 2px solid blue;
+}
+.oddClass{
+	background-color: gray;
+}
+.evenClass{
+	background-color: pink;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	
+	$(function() { //window.addEventListener('load', selector); window.onload에 이벤트리스너로 등록해버린다
+		/*
+		1.tag selector $() <-- jQueryWrapperObject를 반환
+		*/
+		$('h2').addClass('highlight1'); //class의 이름만 붙이면된다 (#, .없이)
+		$('h2').css('color', 'blue');
+		/*
+		2. filter selector(pseudo class) node를 필터링하는데 사용
+		*/
+		$('div:odd').addClass('oddClass');
+		$('div:even').addClass('evenClass');
+		/*
+		3.DOM순회(id selector)
+		*/
+		$('#root').children().each(function(i, e) { //$('#root').children()의 자식들을 각각 돌면서 function을 실행하는 메쏘드
+			console.log(i + '-->' + e + ': ' + e.firstChild.nodeValue);
+		}); // jQueryWrapperObject를 반환, jQuery의 대부분은 jQueryWrapperObject를 반환한다(chaining coding을위해)
+		
+		/*
+		4.DOM Node변경
+		*/
+		$('#h31').text('<u>변경 .text()</u>');
+		$('#h32').html('<u>변경 .html()</u>');
+		
+		/*
+		5. 이벤트(effect)
+		*/
+		$('#send').click(function(e) { //wrapperObject인지 기본객체인지 구분해야한다
+			console.log('이벤트객체: ' + e);
+			console.log('이벤트타겟: ' + e.target);
+			console.log('이벤트타겟: ' + e.target.firstChild.nodeValue);
+			//$('p').slideToggle();
+			//$('div').slideToggle();
+			$('h2').slideToggle();
+		});
+		
+	});
+</script>
+
+</head>
+<body style="font-size: 15pt">
+	<h2>1. jQuery("선택자") 메소드를 이용하여 HTML DOM의 노드(엘리먼트) 선택하여 조작하기.</h2>
+	<p>jQuery("선택자")메소드는 DOM Element를 찾아 Wrapper(jQuery) 객체를 반환한다.</p>
+	<p>jQuery("html 태그")메소드로 동적 DOM을 생성할 수 있다.</p>
+	
+	<h2>2. jQuery가 지원하는 필터 선택자를 Element 필터링하기</h2>
+	<div>jQuery</div>
+	<div>Prototype</div>
+	<div>Dojo</div>
+	
+	<h2>3. jQuery가 제공하는 메소드를 이용하여 DOM의 노드 갯수 세고 노드안의 텍스트 표시하기</h2>
+	<div id="root">
+		<div>KIM</div>
+		<div>LEE</div>
+		<div>박민석</div>
+		<div>서범석</div>
+	</div>
+	
+	<h2>4. DOM 노드의 내용을 동적으로 변경하기</h2>
+	<h3 id="h31">Example1</h3>
+	<h3 id="h32">Example2</h3>
+	
+	<h2>5. jQuery로 이벤트 처리</h2>
+	<button id="send">전송</button>
+</body>
+</html>

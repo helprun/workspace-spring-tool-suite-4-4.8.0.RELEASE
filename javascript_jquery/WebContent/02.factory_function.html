@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src='jquery-my-0.1.js'></script>
+<script type="text/javascript">
+
+	window.onload=function(){
+		console.log('1.' + window.jQuery);
+		console.log('2.' + window.$);
+		console.log('3. factory function ' + typeof window.jQuery);
+		console.log('4. factory function ' + typeof window.$);
+		
+		var jQueryWrapper1 = jQuery('selector');
+		var jQueryWrapper2 = $('selector');
+		console.log('5. factory function return ' + jQueryWrapper1);
+		console.log('5. factory function return ' + jQueryWrapper2);
+		
+		var h1jQueryWrapper = $('h1');
+		console.log('6. jQueryWrapperObject: ' + h1jQueryWrapper);
+		h1jQueryWrapper.css('blue');
+		
+		$('h2').css('pink');
+		$('h3').css('olive');
+		$('h4').css('red');
+		$('h5').css('gold');
+		$('h6').css('green');
+		alert('h1 text-->' + $('h1').text());
+		$('h1').text('밥먹으러 가시죠');
+		$('h2').text('수업끝!!');
+		
+	}
+</script>
+</head>
+<body>
+<h1>jQuery,$[factory function]</h1>
+<h1>jQuery,$[factory function]</h1>
+<h1>jQuery,$[factory function]</h1>
+<hr/>
+<h2>jQuery,$[factory function]</h2>
+<h3>jQuery,$[factory function]</h3>
+<h3>jQuery,$[factory function]</h3>
+<h3>jQuery,$[factory function]</h3>
+<h4>jQuery,$[factory function]</h4>
+<h5>jQuery,$[factory function]</h5>
+<h6>jQuery,$[factory function]</h6>
+
+</body>
+</html>

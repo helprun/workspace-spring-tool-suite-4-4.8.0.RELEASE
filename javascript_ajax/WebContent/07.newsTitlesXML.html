@@ -56,6 +56,7 @@ ul {
 	function responseNews() {
 		if (xhr.readyState == 4) {
 			var xmlDocument = xhr.responseXML;
+			
 			/*
 			<?xml version="1.0" encoding="UTF-8" ?>
 			<result>
@@ -72,43 +73,55 @@ ul {
 			    </data>
 			</result>
 			*/
-			var countStr = xmlDocument
-							.getElementsByTagName('count')
-							.item(0)
-							.firstChild
-							.nodeValue;
-			if(countStr.trim()=='0'){
+			
+			//XML에서 꺼내는 유일한 방법
+			var countNodeList = xmlDocument.getElementsByTagName('count');
+			var countElement = countNodeList.item(0);
+			var countText = countElement.firstChild; //Object(TextNode)반환
+			var countStr = countText.nodeValue;
+			
+			if (countStr.trim() == 0) {
 				return;
 			}
-			var newsNodeList=
-				xmlDocument.getElementsByTagName('news');
-			var html="<ul>";
+			
+			var newsNodeList = xmlDocument.getElementsByTagName('news');
+			var html = "<ul>"
 			for (var i = 0; i < newsNodeList.length; i++) {
-				var newsE = newsNodeList.item(i);
-				//console.log("------>"+newsE.childElementCount);
 				/*
-				<news>
-	               <title>참으로 수고 많으셨습니다</title>
-	               <company>연합뉴스</company>
-	               <date>2020. 3. 16 오전 11:24:31</date>
-			    </news>
+					var newsElement = newsNodeList.item(i);
+					var titleNodeList = newsElement.getElementsByTagName('title'); //1개의 title, nodeList반환(중요)
+					var titleElement = titleNodeList.item(0);
+					var titleText = titleElement.firstChild;
+					var titleStr = titleText.nodeValue;
 				*/
-				var titleStr = newsE.getElementsByTagName('title')
-				               .item(0)
-				               .firstChild
-				               .nodeValue;
-				var companyStr = newsE.getElementsByTagName('company')
-				               .item(0)
-				               .firstChild
-				               .nodeValue;
-				var dateStr = newsE.getElementsByTagName('date')
-				               .item(0)
-				               .firstChild
-				               .nodeValue;
-				html+="<li>"+titleStr+"["+companyStr+"("+dateStr+")]XML</li>"
+				
+				var titleStr = newsNodeList.item(i).
+							   getElementsByTagName('title').
+							   item(0).
+							   firstChild.nodeValue;
+				
+				var companyStr = newsNodeList.item(i)
+								 .getElementsByTagName('company')
+								 .item(0)
+								 .firstChild
+								 .nodeValue;
+				
+				var dateStr = newsNodeList.item(i)
+								 .getElementsByTagName('date')
+								 .item(0)
+								 .firstChild
+								 .nodeValue;
+				/*
+					<news>
+			                <title>참으로 수고 많으셨습니다</title>
+			                <company>연합뉴스</company>
+			                <date>2020. 3. 16 오전 11:24:31</date>
+			       </news>
+				*/
+				html += "<li>" + titleStr + "[" + companyStr + "(" + dateStr + ")] XML </li>";
 			}
-			html+="</ul>";
-			document.getElementById('newsDiv').innerHTML=html;
+			html += "</ul>";
+			document.querySelector('#newsDiv').innerHTML = html;
 		}
 	}
 	window.onload = function() {
