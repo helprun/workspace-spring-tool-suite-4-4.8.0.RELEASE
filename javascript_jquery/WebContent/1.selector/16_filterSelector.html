@@ -19,17 +19,91 @@ td {
 	width: 40px;
 	height: 40px;
 }
+
+/*
+	의사(pseudo class) 클래스*/
+	/* LVHA :link :visited :hover :active*/
+a{
+	text-decoration: none;
+	cursor: crosshair;
+}
+a:link {
+	color: orange;
+}
+
+a:visited {
+	color: maroon;
+}
+
+a:hover {
+	background: yellow;
+	color: green;
+}
+
+a:active{
+	background: white;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+
+tr:first-child{
+	background : green;
+}
+
+
+/* 자식은 0번째 자식이 없다 */
+tr:nth-child(3){ 
+	background : red;
+}
+
+tr:last-child {
+	background: lime;
+}
+
+
+/*
+가상(pseudo) 클래스(의사 클래스)
+   
+   ● 표준 가상(pseudo) 클래스
+	 - CSS 가상 클래스(의사 클래스)는 선택자에 추가하는 키워드로, 
+	   선택한 요소가 특별한 상태여야 만족할 수 있습니다. 
+	   ex > 예를 들어 :hover를 사용하면 포인터를 올렸을 때에만 글씨 색을 바꾸고 싶을 때 
+	        사용할 수 있습니다
+	 - https://developer.mozilla.org/ko/docs/Web/CSS/Pseudo-classes
+   ●  jQuery에서 제공하는 가상(pseudo) 클래스
+	   ex> :eq(0), :odd , :even
+   ● 가상(pseudo) 클래스를 사용한 스타일 적용 방법
+	  - 아래와 같은 가상 클래스(pseudo-class)를 사용하여 
+	    링크에 다양한 스타일을 적용할 수 있습니다.
+		1. a:link 방문 전 링크 상태
+		2. a:visited 방문 후 링크 상태
+		3. a:hover 마우스 오버했을 때 링크 상태
+		※ 스타일 적용 순서는 위 번호 순대로 하는 게 좋습니다. 
+		   순서가 바뀌면 스타일에 제대로 적용되지 않습니다~
+		※ LVHA-순서(:link — :visited — :hover — :active)
+
+*/
 </style>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		$('tr:eq(0)').css('background', 'green');	
+		$('td:eq(39)').css('background', 'pink');
+		$('tr:eq(0) > td:eq(9)').css('background', 'orange');
+		$('tr:eq(1) > td:gt(2)').css('background', 'gold');
+		$('tr:eq(2) > td:odd').css('background', 'yellow');
+		$('tr:eq(2) > td:even').css('background', 'purple');
 		
+		$('tr:eq(3) > td:first').css('background', 'olive');
+		$('tr:eq(3) > td:last').css('background', 'olive');
 		
 	});
 </script>
 </head>
 <body style="padding: 10px;">
 	<h2>jQuery에서 제공하는 기본 필터를 이용한 HTML Element 검색</h2>
+	<a href="17_filterSelector.html">가상클래스를 사용한 a tag style 설정</a>
 	<div>
 		<table>
 			<tr>

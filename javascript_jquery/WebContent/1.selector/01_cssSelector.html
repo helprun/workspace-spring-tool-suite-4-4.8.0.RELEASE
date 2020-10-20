@@ -3,10 +3,25 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>CSS 선택자를 이용한 HTML DOM Element 검색</title>
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 		<script type="text/javascript">
 			$(function(){
+				/* setter */
+				$('div').css('border', '4px solid rgb(0, 0, 125)'); 
+				$('div').css('background-color', 'blue');
 				
+				/* getter */
+				console.log('1.css(border)--> ' + $('div').css('border'));
+				console.log('2.css(background-color)--> ' + $('div').css('background-color'));
+				
+				$('div').css('background-color', function(i, oldProperty) {
+					console.log(i + '번째 div의 background-color 값은 --> ' + oldProperty);
+					if (i%2 == 0) {
+						return 'mistyrose';
+					} else {
+						return 'aliceblue';
+					}
+				});
 				
 			});
 		</script>

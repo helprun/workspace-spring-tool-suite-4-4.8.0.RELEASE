@@ -30,11 +30,48 @@
 				{'id':'guard1','name':'kim','address':'경기도'},
 				{'id':'guard2','name':'gim','address':'경기레'},
 				{'id':'guard3','name':'aim','address':'경기미'},
-				{'id':'guard4','name':'sim','address':'경기파'},
+				{'id':'guard4','name':'aim','address':'경기파'},
 				{'id':'guard5','name':'cim','address':'경기도'}
 		];
 		
+		memberNameArray.sort(function(name1, name2) {
+			if (name1 > name2) {
+				return -1;
+			} else {
+				return 1;
+			}
+		});
 		
+		memberScoreArray.sort(function(score1, score2) {
+			if (score1 > score2) {
+				return -1;
+			} else {
+				return 1;
+			}
+		});
+		
+		memberArray.sort(function(member1, member2) {
+			if (member1.name > member2.name) {
+				//name ascending
+				return 1; //바꾸려면 양수 (오름차순) 내림차순은 음수
+			} else if (member1.name == member2.name) {
+				if (member1.address > member2.address) {
+					return 1; // address ascending
+				} else {
+					return -1;
+				}
+			} else {
+				return -1;
+			}
+			
+		})
+		
+		$('.sorted1').html(memberNameArray.join(', '));
+		$('.sorted2').html(memberScoreArray.join(', '));
+		
+		$.each(memberArray, function(i, m) {
+			$('.sorted3').append(m.id + ', ' + m.name + ', ' + m.address + '<br>');
+		});	
 		
 	});
 	

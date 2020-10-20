@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>배열 처리 메소드 활용</title>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script type="text/javascript">
 $(function() {
@@ -11,16 +11,24 @@ $(function() {
 	/*
 	The .get() method grants us access to the DOM nodes underlying each jQuery object.
 	Suppose we had a simple unordered list on the page:
-	
+	*/
+	var listElementArray = $('#nameList > li').get();
+	console.log('0. li element array: ' + listElementArray);
+	console.log('1. li element : ' + listElementArray[0]);
+	console.log('2. li element value: ' + listElementArray[4].firstChild.nodeValue);
+	$('h2').text('Number of Members of a Group is ' + listElementArray.length + ' 명');
 	/*
 	text()
 	Get the combined text contents of each element in the set of matched elements,
 	including their descendants.
 	
-	text('string')
+	.text('string')
 	A string of text to set as the content of each matched element
 	*/
-	
+	var text = $('#nameList').text();
+	console.log('.text():' + text);
+	var html = $('#nameList').html();
+	console.log('.html():' + html);
 	
 });
 </script>
@@ -35,4 +43,4 @@ $(function() {
 		<li>Ian</li>
 	</ul>
 </body>
-</html>
+</html> 

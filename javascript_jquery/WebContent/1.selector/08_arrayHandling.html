@@ -17,10 +17,25 @@
 		/*
 		$.grep();
 		*/
+		var filterNameArray = $.grep(memberNameArray, function(name, i) {
+			if (name.startsWith('k')) {
+				return true;
+			} else {
+				return false;
+			}
+		}, false); //결과를 뒤집는다 (i.e) true로 하면 이름이 k로시작하지 않는 이름만 나온다
+		$('.selected1').append(filterNameArray.join());
 		
-		
-		
-		
+		var filterMemberArray = $.grep(memberArray, function(m, i) {
+			if (m.address =='경기도') {
+				return true;
+			} else {
+				return false;
+			}
+		}, false);
+		$.each(filterMemberArray, function(i, m) {
+			$('.selected2').append(m.id + ', ' + m.name + ', ' +  m.address + '<br>');
+		});
 		
 		
 		
@@ -30,6 +45,7 @@
 </head>
 <body style="padding: 10px;">
 	<h2>Members of my Group are</h2>
-	<p class="selected"></p>
+	<p class="selected1"></p>
+	<p class="selected2"></p>
 </body>
 </html>

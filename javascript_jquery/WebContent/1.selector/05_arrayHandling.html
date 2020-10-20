@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>배열 처리 메소드 활용</title>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	
 	$(function(){
@@ -16,6 +16,17 @@
 				{'id':'guard5','name':'kim5','address':'경기솔'}
 		];
 		
+		$('h2').append(" &nbsp;[" + memberNameArray.length + ']') ;
+		$('p').html(memberNameArray.join(':'));
+		
+		$('#memberNameList')
+		$.each(memberNameArray, function(i, e) {
+			$('#memberNameList').append('<li>' + i + '번째 요소: ' + e + '</li>');
+		});
+		// $ <-- jQuery는 function이다
+		$.each(memberArray, function(i, member) {
+			$('#memberList').append('<li>[' + member.id + ']' + member.name + '</li>');
+		});
 	});
 	
 </script>

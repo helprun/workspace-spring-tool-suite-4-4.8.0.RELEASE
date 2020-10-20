@@ -3,9 +3,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>CSS 선택자를 이용한 HTML DOM Element 검색</title>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		$('#title').html($('h2').text());
+		$('.contents').html('<b>jQuery는 오픈소스 자바스크립트라이브러리입니다.</b>'); //tag가 없을때 html()과 text()는 같다
+		//$('.contents').text('<b>jQuery는 오픈소스 자바스크립트라이브러리입니다.</b>'); 
+		console.log('--------------- .text() ------------------');
+		console.log($('body').text());
+		console.log('--------------- .html() ------------------');
+		console.log($('body').html());
 		
 	});
 </script>

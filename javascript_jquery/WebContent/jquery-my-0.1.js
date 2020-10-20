@@ -4,7 +4,8 @@ window.jQuery = function(selector) {
 	} else if(typeof selector == 'function') {
 		window.addEventListener('load', selector);
 	} else if(typeof selector == 'object') {
-		
+		//대부분 DOM Object
+		//DOM Object를 --> jQueryWrapperObject로 변경
 	}
 	
 	var elementNodeList = document.querySelectorAll(selector);

@@ -27,7 +27,13 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-	
+		$('h1').each(function(i, e) {//e == element는 표준객체가 들어온다
+			console.log(i + '-->' + e);
+			$(e).addClass('high_light_' + i);
+			//e.setAttribute('class', 'high_light_' + i); //일반 element(표준객체)는 setAttribute, jQueryWrapperObject면 addClass
+		});
+		
+		//$('h1').addClass('high_light_3');
 	});
 </script>
 </head>
