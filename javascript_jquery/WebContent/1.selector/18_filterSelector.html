@@ -23,7 +23,15 @@ td {
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-	
+		$('td').css('border', '1px dotted red');	
+		$('td:first').css('color', 'white');
+		$('td:first-child').css('background', 'pink'); //각 엘레멘트의 첫번째 (1, 6, 11, 21)
+		$('td:last').css('color', 'white');
+		$('td:last-child').css('background', 'red'); 
+		
+		$('td:nth-child(2)').css("background", "orange");
+		$('td:nth-child(3)').css("background", "lime");
+		$('td:nth-child(4)').css("background", "olive");
 		
 	});
 </script>

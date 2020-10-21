@@ -28,16 +28,42 @@ td {
 <script type="text/javascript">
 	$(function() {
 		
+		$('td').click(function(e) {	//event(e)는 표준객체다
+			/* --------- 외우자! ----------- */
+			console.log('-----------------td click event----------------------');
+			console.log('1. event object: ' + e);
+			console.log('2. event target: ' + e.target);
+			console.log('3 this: ' + this);
+			console.log('4 event type: ' + e.type);
+			console.log('5. td text(Element): ' + e.target.firstChild.nodeValue);
+			console.log('5. td text(jQuery): ' + $(e.target).text());
+		});
 		
+		$('td').mouseenter(function(e) {	//event(e)는 표준객체다
+			console.log('-----------------td mouseenter event----------------------');
+			console.log('1. event object: ' + e);
+			console.log('2. event target: ' + e.target);
+			console.log('3 this: ' + this);
+			console.log('4 event type: ' + e.type);
+			console.log('5. td text(Element): ' + e.target.firstChild.nodeValue);
+			console.log('5. td text(jQuery): ' + $(e.target).text());
+			
+			$(e.target).toggleClass('select');
+		});
 		
 		/*
 		var tdElementNodeList = document.getElementsByTagName("td")
 		for (var i = 0; i < tdElementNodeList.length; i++) {
 			tdElementNodeList.item(i).addEventListener("click", function(e) {
 				console.log(e);
+				console.log(e.target.firstChild.nodeValue);
+				console.log(this);
+				console.log(this.firstChild.nodeValue);
+				
 			});
 		}
 		*/
+		
 	});
 </script>
 </head>

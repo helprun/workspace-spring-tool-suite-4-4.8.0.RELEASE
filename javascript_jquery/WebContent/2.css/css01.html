@@ -28,11 +28,32 @@ td {
 <script type="text/javascript">
 	$(function() {
 		//#1.스타일 속성이름에 해당하는 속성값 가져오기
+		var divColor = $('div').css('background-color');
+		console.log('div background-color --> ' + divColor);
 		//#2. style 적용
-		
+		$('div').css('background-color', 'orange');
 		//#3. 동적스타일변경
+		$('tr').css('background-color', function(i, oldValue) {
+			if (oldValue != 'rgb(255, 255, 0)') {
+				return 'pink';
+			} else {
+				return 'aliceblue';
+			}
+		});
 		
-		
+		$('span').addClass(function(i, currentClass) {
+			if (currentClass == 'myClass') {
+				$(this).removeClass('myClass');
+			} else {
+				$(this).addClass('myClass');
+			}
+			
+			if ($(this).hasClass('myClass')) {
+				$(this).removeClass('myClass');
+			} else {
+				$(this).addClass('myClass');
+			}
+		});
 		
 		
 	});

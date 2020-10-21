@@ -32,7 +32,30 @@ var enterCount = 0;
 var leaveCount = 0;
 var clickCount = 0;
 $(function() {
+	/*
+	$('h2').click(function(e) {
+		$(e.target).html('jQuery에서 제공하는 Event핸들링메쏘드['+ ++clickCount +']');
+	}); //제거가 안된다
+	*/
 	
+	$('h2').on('click', function(e) { //제거가능
+		$(e.target).html('jQuery에서 제공하는 Event핸들링메쏘드['+ ++clickCount +']');
+	});
+	
+	$('#mouseArea').on('mouseenter mouseleave click', function(e) {
+		if (e.type == 'mouseenter') {
+			enterCount++;
+		} else if (e.type == 'mouseleave') {
+			leaveCount++;
+		} else if (e.type == 'click') {
+			clickCount++;
+		}
+			$('#spResult').html(
+					'mouse enter count: ' + enterCount + '<br>' + 
+					'mouse leave count: ' + leaveCount + '<br>' +
+					'mouse click count: ' + clickCount + '<br>'
+			);
+	});
 	
 });
 </script>

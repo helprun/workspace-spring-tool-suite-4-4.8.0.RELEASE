@@ -17,12 +17,27 @@ $(function() {
 	/*
 	현재DOM Tree에있는 엘레멘트만 이벤트처리
 	
+	$('li').click(function(e) {
+		alert($(e.target).text());
+	});
+	$('li').on('click', function(e) {
+		alert($(e.target).text());
+	});
 	*/
+	
 	/*
 	현재DOM Tree의 ul 에 동적으로추가되는 li 엘레멘트도 이벤트처리
+	on을 사용하면 동적으로 추가된 element에도 이벤트를 추가해준다
 	*/
+	//부모        실제로 처리되는 애
+	// ▽                 ▽
+	$('ul').on('click', 'li', function(e) { //ul 하위에 있는 li가 추가될때마다 이밴트를 추가
+		alert($(e.target).text());	//DOM트리가 로딩된 후 실행
+	});
 	
-	
+	$('#btnAdd').click(function(e) {
+		$('ul').append('<li>list item '+ $('li').length +'</li>');
+	});
 	
 	$('#btnDie').click(function(e) {
 		// 제거시에는 항상 상위엘레멘트의 참조가필요

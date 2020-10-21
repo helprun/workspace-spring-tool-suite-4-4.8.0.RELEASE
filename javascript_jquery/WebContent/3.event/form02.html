@@ -26,21 +26,53 @@ td {
 		$('#f').on('submit',function(e){
 			
 			/*
+			폼을 이용한 서버로의 jQuery ajax요청
+			1. parameter생성
+			2. 유효성체크
+			3. jQuery ajax요청
+			4. submit default를 중지
+			*/
+			/*
+				element 속성(attribute) 접근
+			*/
+			//set
+			$('#p_image').attr('src', 'icon1.png'); 
+			$('#p_image').attr('width', '20px'); 
+			$('#p_image').attr('height', '20px');
+			
+			//get
+			console.log($('#p_image').attr('src'));
+			console.log($('#p_image').attr('width'));
+			console.log($('#p_image').attr('height'));
+			
+			/*
 			input element접근
 			*/
 			//read
-			
+			var idValue = $("input[name = 'id']").val();
+			//var idValue = $("input[name = 'id']").attr('value');
+			var nameValue = $('#name').val();
+			var aliasValue = $('#alias').val();
+			var jobValue = $('#job option:selected').val();
+			console.log('-------------- input element read .val() -----------------');
+			console.log('idValue: ' + idValue);
+			console.log('nameValue: ' + nameValue);
+			console.log('aliasValue: ' + aliasValue);
+			console.log('jobValue: ' + jobValue);
 			//set
-			
+			console.log('-------------- input element write .val(data) -----------------');
+			$('#alias').val('제임스딘~~');
+			//$('#job option:eq(2)').attr('selected', 'selected');
+			$('#job').val('회사원').attr('selected', 'selected');
 			
 			/*
+			(중요)
 			 입력 엘레멘트의 값을 접근할때는  .val() 을사용
 		      - .val() 은 DOM트리생성이후에 동적으로변하는 
 		        사용자입력데이타를 읽을수있다
 		     */
-		  
+			e.preventDefault();
 		     
-		 e.preventDefault();
 		});
 		
 	});
@@ -52,7 +84,7 @@ td {
 	
 	<div>
 		<form id="f" name="f" action="xxx.jsp">
-			아이디:<input type="text" name="id" id="id"  value="xxx"/>
+			아이디:<input type="text" name="id" id="id" />
 			<img id="p_image"  alt="프로필이미지" />
 			<br />
 			이이름:<input type="text"  id="name" name="name" /><br /> 

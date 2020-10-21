@@ -25,10 +25,21 @@ td {
 	$(function() {
 		$('#f').on('submit',function(e){
 			//alert('submit');
+			
 			/*
-			ajax요청
-			1.parameter생성
+			폼을 이용한 서버로의 jQuery ajax요청
+			1. parameter생성
+			2. ajax요청
+			3. submit default를 중지
 			*/
+			var parameter = $('#f').serialize();
+			var parameterArray = $('#f').serializeArray();
+			var parameterArraytoString = $.param(parameterArray);
+			
+			console.log("1. parameter $('form').serialize(): " + parameter);
+			console.log("2. parameter $('form').serializeArray(): " + parameterArray);
+			console.log("3. parameter $.param.serializeArray(): " + parameterArraytoString);
+			e.preventDefault(); // 기존 액션을 막는다(중요)
 			
 		});
 		
@@ -39,7 +50,7 @@ td {
 <body style="padding: 10px;">
 	<h2>jQuery에서 제공하는 Form 제어 메소드</h2>
 	<div>
-		<form id="f" action="xxx.jsp">
+		<form id="f" action="xxx.jsp" method="post"> 
 			아이디:<input type="text" name="id" id="id" /><br />
 			이이름:<input type="text" name="name" /><br /> 
 			별명[히든]:<input type="hidden" name="alias" value="제임스" /><br />
@@ -49,7 +60,7 @@ td {
 				<option value="2">job2</option>
 				<option value="3">job3</option>
 			</select> <br /> 
-			<input type="submit" value="전송[submit]" />
+			<input type="submit" value="전송[submit]" /><!-- submit과 img에는 이벤트를 추가하지않는다 -->
 		</form>
 	</div>
 </body>
