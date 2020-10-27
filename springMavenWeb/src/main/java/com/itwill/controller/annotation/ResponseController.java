@@ -1,11 +1,16 @@
 package com.itwill.controller.annotation;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.InternalResourceView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import com.itwill.dto.Guest;
 
 @Controller
 public class ResponseController {
@@ -79,4 +84,55 @@ public class ResponseController {
 		redirectView.setUrl("response_redirect_view_object.jsp");
 		return redirectView;
 	}
+	
+	/***************** xml출력 View[XMLView] ********************/
+	@RequestMapping("response_xml_view_object.do")
+	public View response_xml_view_object(Model model) {
+		ArrayList<String> friendsList = new ArrayList<String>();
+		friendsList.add("김수미");
+		friendsList.add("김우미");
+		friendsList.add("김미미");
+		friendsList.add("김양미");
+		friendsList.add("김가미");
+		
+		model.addAttribute("friendsList", friendsList);
+		
+		XMLView xmlView = new XMLView();
+		return xmlView;
+	}
+	
+	@RequestMapping("response_xml_view_name.do")
+	public String response_xml_view_name(Model model) {
+		ArrayList<String> friendsList = new ArrayList<String>();
+		friendsList.add("김수미");
+		friendsList.add("김우미");
+		friendsList.add("김미미");
+		friendsList.add("김양미");
+		friendsList.add("김가미");
+		
+		model.addAttribute("friendsList", friendsList);
+		
+		return "xmlView";
+	}
+	
+	/*
+	 *	Controller --> MessageConverter(String, XML, JSON) --> Client 
+	 */
+	@RequestMapping(value = "/response_string.do", produces = "text/plain;charset=UTF-8")
+	public @ResponseBody String responseString() { //responsebody를 붙이면 messageconverter가 응답
+		return "string response body data[한글]";
+	}
+	
+	@RequestMapping(value = "/response_html.do", produces = "text/html;charset=UTF-8")
+	public @ResponseBody String responseHtml() { 
+		return "<h3>string response body data[한글]</h3><hr/>";
+	}
+	
+	@RequestMapping(value = "/response_xml.do", produces = "text/xml;charset=UTF-8")
+	@ResponseBody
+	public Guest responseXml() {
+		Guest guest = new Guest(1, "KIM", "1993-03-20", "akiratksk@hotmail.com", "homepage", "title", "content");
+		return guest;
+	}
+	
 }

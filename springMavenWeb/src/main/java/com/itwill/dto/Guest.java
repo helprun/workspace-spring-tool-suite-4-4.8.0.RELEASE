@@ -1,8 +1,9 @@
 package com.itwill.dto;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
-
-
+@XmlRootElement //(name = "data") 이름을 바꿀 수 있다 @xmlRootElement xml로 만들어주는 어노테이션
 public class Guest {
 	private int guest_no;
 	private String guest_name;
@@ -24,6 +25,8 @@ public class Guest {
 		this.guest_title = guest_title;
 		this.guest_content = guest_content;
 	}
+	
+	//@XmlElement(name =  "no")
 	public int getGuest_no() {
 		return guest_no;
 	}
@@ -73,16 +76,4 @@ public class Guest {
 				+ ", guest_content=" + guest_content + "]";
 	}
 	
-	
 }
-
-
-
-
-
-
-
-
-
-
-

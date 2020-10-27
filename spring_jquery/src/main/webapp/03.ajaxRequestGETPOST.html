@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+	function ajaxRequestPost(){
+		var idStr = document.postForm.id.value;
+		if (idStr.trim()=="") {
+			return;
+		}
+		
+		$.ajax({
+			url: "03.ajaxRequestGETPOST",
+			method: 'POST',
+			dataType: 'text',
+			data: $('#postForm').serialize(),
+			beforeSend: function() {
+				document.getElementById('postResultSpan').innerHTML = 
+				"<img width= '15px' height = '15px' src = 'loading.gif'>";
+			},
+			success: function(responseStr) {
+				document.getElementById('postResultSpan').innerHTML = responseStr;
+			}
+			
+		})
+	}
+	$(function() {
+		//이벤트등록
+		document.postForm.id.addEventListener('keyup', function(e) {
+			ajaxRequestPost();
+		}, false);
+	});
+</script>
+</head>
+<body>
+<h1>AJAX GET,POST요청</h1><hr/>
+<form id="postForm" name="postForm">
+	아이디[POST]:<input type="text" name="id" id="id">
+	<span id="postResultSpan"></span>
+</form>
+</body>
+</html>

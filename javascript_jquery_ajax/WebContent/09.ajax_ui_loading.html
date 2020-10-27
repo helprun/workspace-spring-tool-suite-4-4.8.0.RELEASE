@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+
+	function hideForm() {
+//		document.querySelector('#formContent').innerHTML = "";
+		var contentNode = document.querySelector('#content');
+		if (contentNode != null) {
+			contentNode.style.display = 'none';
+		}
+		
+	}
+	
+	function showForm() {
+		var contentNode = document.querySelector('#content');
+		if (contentNode == null) {
+			$('#formContent').load('guest_write_form.html');
+			//$('#formContent').load('guest_write_form.html', null, function(){});
+		} else {
+			contentNode.style.display = 'block';
+		}
+		
+	}
+	
+</script>
+</head>
+<body>
+<input type="button" value="회원가입폼" onclick="showForm();">
+<input type="button" value="회원가입취소" onclick="hideForm();">
+<div id='formContent'>
+	
+</div>
+</body>
+</html>
