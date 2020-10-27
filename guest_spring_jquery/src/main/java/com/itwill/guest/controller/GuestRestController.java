@@ -3,7 +3,10 @@ package com.itwill.guest.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +20,57 @@ public class GuestRestController {
 
 	@Autowired
 	private GuestService guestService;
+	
+	@RequestMapping(value = "guest_existed_id_check", 
+					produces = "text/plain;charset=UTF-8")
+	public String guest_existed_id_check(@RequestParam String guest_id) {
+		String result = "false";
+		
+		if (guest_id.equals("user1") || guest_id.equals("user2")) {
+			result = "true";
+		} 
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "guest_insert_action",
+					produces = "text/plain;charshet=UTF-8")
+	public String guest_insert_action(@ModelAttribute Guest guest) throws Exception {
+		boolean isInsertSuccess = guestService.insertGuest(guest);
+		
+		if (isInsertSuccess) {
+			return "true";
+		}
+		
+		return "false";
+	}
+	
+	@RequestMapping(value = "guest_logout_action",
+					produces = "text/plain;charset=UTF-8")
+	public String guest_logout_action(HttpSession session) {
+		session.invalidate();
+		return "logout";
+	}
+	
+	@RequestMapping(value = "guest_login_action",
+					produces = "text/plain;charset=UTF-8")
+	public String guest_login_action(@RequestParam String guest_id, 
+									@RequestParam String guest_pass,
+									HttpSession session) {
+		/*
+		 *  id  | pass
+		 * -----------
+		 * user1|user1
+		 * user2|user2
+		 */
+		String result = "fail";
+		if ((guest_id.equals("user1") && guest_pass.equals("user1")) ||
+			(guest_id.equals("user2") && guest_pass.equals("user2"))) {
+			session.setAttribute("user_id", guest_id);
+			result = "success";
+		}
+		return result;
+	}
 	
 	@RequestMapping(value = "guest_detail_xml",
 					produces = "text/xml;charset=UTF-8")
@@ -45,10 +99,10 @@ public class GuestRestController {
 	}
 	
 	@RequestMapping(value = "guest_detail_html", produces = "text/html;charset=UTF-8")
-	public String guest_detail_html(@RequestParam String guest_no) {
+	public String guest_detail_html(@RequestParam int guest_no) {
 		StringBuffer sb = new StringBuffer();
 		try {
-			Guest guest = guestService.selectByNo(Integer.valueOf(guest_no));
+			Guest guest = guestService.selectByNo(guest_no);
 
 			sb.append("<div class = 'guest_detail'>");
 			sb.append("<div class=\"guest_date\">");
